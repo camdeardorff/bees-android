@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
         chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         chart.getXAxis().setTextColor(Color.BLACK);
         chart.getAxisRight().setEnabled(false);
+        chart.getViewPortHandler().setMaximumScaleX(3);
     }
 
     private void showNoDataMessage() {
