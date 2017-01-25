@@ -6,4 +6,5 @@
     <color name="BeesBlue">#00BCFF</color>
     <color name="BeesGrey">#333333</color>
     <color name="Black">#000000</color>
+    <color name="White">#ffffff</color>
 </resources>
