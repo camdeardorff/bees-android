@@ -1,9 +1,11 @@
 package com.camdeardorff.bees_android.Activities;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -55,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void reloadChart() {
         // get the default time zone id
         String timezone = TimeZone.getDefault().getID();
@@ -72,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                         hideLoadingAnimation();
                         if (records != null) {
                             displayData(records);
+                        } else {
+                            showNoDataMessage();
                         }
                     }
                 });
@@ -139,12 +142,33 @@ public class MainActivity extends AppCompatActivity {
         Description emptyDescription = new Description();
         emptyDescription.setText("");
         chart.setDescription(emptyDescription);
+
+        chart.setNoDataText("");
+        chart.setNoDataTextColor(R.color.Black);
         // configure axis styles
         chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
         chart.getXAxis().setTextColor(Color.BLACK);
         chart.getAxisRight().setEnabled(false);
     }
 
+    private void showNoDataMessage() {
+        System.out.println("Show no data message");
+
+        // 1. Instantiate an AlertDialog.Builder with its constructor
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+        // 2. Chain together various setter methods to set the dialog characteristics
+        builder.setMessage(R.string.no_data_message)
+                .setTitle(R.string.no_data_title);
+
+        // 3. Get the AlertDialog from create()
+        AlertDialog dialog = builder.create();
+
+        builder.setPositiveButton(R.string.no_data_action_done, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {}
+        });
+        builder.show();
+    }
 
     public void showLoadingAnimation() {
         ImageView loadingGif = (ImageView) findViewById(R.id.loadingGif);
